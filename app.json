@@ -5,7 +5,21 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.pspublishing",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.pspublishing",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBypLrk6hnF7I4UzVxOtATVFXM1jD6Z5eo"
+        }
+      }
+    },
+    "description": ""
   },
   "name": "ps-publishing"
 }
