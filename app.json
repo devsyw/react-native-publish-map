@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "ps-publishing",
+    "slug": "ps-publishing",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "ps-publishing"
+}
