@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 /** 상단 스테이터스 바 */
 import { StatusBar } from 'expo-status-bar';
@@ -7,10 +7,17 @@ import { StatusBar } from 'expo-status-bar';
 /** React-Native-Map lib */
 import MapView, { Marker, PROVIDER_GOOGLE, animateToRegion, Callout} from 'react-native-maps';
 
-
+const windowSize = Dimensions.get('window');
 
 export default function PubMapMain({navigation, route, options, back}){
-    
+
+    const IconBox = () => {
+        return (
+            <View style={styles.iconBoxArea}>
+                
+            </View>
+        )
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -29,8 +36,10 @@ export default function PubMapMain({navigation, route, options, back}){
                     longitudeDelta: 0.02,
                 }}
             >
-
             </MapView>
+
+            {/**  */}
+            
         </SafeAreaView>
     )
 };
@@ -41,8 +50,15 @@ const styles = StyleSheet.create({
     }, 
     map : {
         ...StyleSheet.absoluteFill,
-    }
-
+    },
+    iconBoxArea : {
+        width : windowSize.width*0.08,
+        height : windowSize.height*0.08,
+    },
+    iconBox : {
+        width : windowSize.width*0.08,
+        height : windowSize.height*0.08,
+    },
 })
 
 const mapStyle = [
