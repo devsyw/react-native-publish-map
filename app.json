@@ -19,7 +19,12 @@
         }
       }
     },
-    "description": ""
+    "description": "",
+    "packagerOpts":{
+      "config":"metro.config.js",
+      "sourceExts":["mtl","obj","gltf","glb"]
+    }
   },
   "name": "ps-publishing"
+  
 }

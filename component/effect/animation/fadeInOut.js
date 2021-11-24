@@ -32,7 +32,6 @@ const FadeInOut = ({navigation, route, options, back}) => {
                 style={[
                 styles.fadingContainer,
                 {
-                    // Bind opacity to animated value
                     opacity: fadeAnim
                 }
                 ]}

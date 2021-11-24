@@ -16,6 +16,7 @@ const AnimationRoute = ({navigation, route, options, back}) => {
                 <Button title="드래그 앤 드랍" onPress={() => navi('IconDrag')} />
                 <Button title="페이드 인/아웃" onPress={() => navi('FadeInOut')} />
                 <Button title="슬라이드" onPress={() => navi('SlideTest')} />
+                <Button title="펼쳐지는 버튼" onPress={() => navi('OpenBtnList')} />
             </View>
         </SafeAreaView>
     );
