@@ -9,7 +9,6 @@ const FadeInOut = ({navigation, route, options, back}) => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     const fadeIn = () => {
-        // Will change fadeAnim value to 1 in 5 seconds
         Animated.timing(fadeAnim, {
             toValue: 1,
             duration: 1000,
@@ -18,7 +17,6 @@ const FadeInOut = ({navigation, route, options, back}) => {
     };
 
     const fadeOut = () => {
-        // Will change fadeAnim value to 0 in 3 seconds
         Animated.timing(fadeAnim, {
             toValue: 0,
             duration: 1000,

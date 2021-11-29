@@ -3,8 +3,28 @@ const { getDefaultConfig } = require('expo/metro-config');
 
 //module.exports = getDefaultConfig(__dirname);
 
-module.exports = {
+module.exports = (async () => {
+  const {
+    resolver: { assetExts },
+  } = await getDefaultConfig(__dirname);
+
+  return {
     resolver: {
-      assetExts: ['db', 'mp3', 'ttf', 'obj', 'png', 'jpg', 'glb', 'gltf', 'mtl'],
+      assetExts: [
+        ...assetExts,
+        "obj",
+        "mtl",
+        "JPG",
+        "vrx",
+        "hdr",
+        "gltf",
+        "glb",
+        "GLB",
+        "bin",
+        "arobject",
+        "gif",
+        "png",
+      ],
     },
-};
+  };
+})();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackgroundBase, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { Fontisto } from '@expo/vector-icons';
 import { 
@@ -70,7 +70,7 @@ export default function SignInVerifyCode({navigation, route, options, back}){
             <View style={styles.bottomArea}>
                 {/** 다음 페이지 이동 버튼 */}
                 <TouchableOpacity
-                    onPress={() => navigation.push('P006')} //테스트용
+                    onPress={() => navigation.push('SignInDone')} //테스트용
                     style={[styles.nextPageBtn, {backgroundColor : '#FA517A'}]}
                 >
                     <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />

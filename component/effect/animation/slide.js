@@ -20,6 +20,7 @@ const SlideTest = ({navigation, route, options, back}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.scrollContainer}>
+        {/** 여기서 다함 */}
         <ScrollView
           horizontal={true}
           pagingEnabled

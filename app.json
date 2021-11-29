@@ -22,7 +22,7 @@
     "description": "",
     "packagerOpts":{
       "config":"metro.config.js",
-      "sourceExts":["mtl","obj","gltf","glb"]
+      "sourceExts":["mtl","obj","gltf","glb", "png", "gif"]
     }
   },
   "name": "ps-publishing"

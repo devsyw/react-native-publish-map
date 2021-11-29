@@ -39,6 +39,9 @@ export default function PubMapMain({navigation, route, options, back}){
             </MapView>
 
             {/**  */}
+            <View>
+                
+            </View>
             
         </SafeAreaView>
     )
@@ -59,15 +62,27 @@ const styles = StyleSheet.create({
         width : windowSize.width*0.08,
         height : windowSize.height*0.08,
     },
-})
+});
 
 const mapStyle = [
+    {
+        "featureType": "all",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
     {
         "featureType": "administrative",
         "elementType": "all",
         "stylers": [
             {
                 "visibility": "off"
+            },
+            {
+                "color": "#efebe2"
             }
         ]
     },
@@ -76,16 +91,7 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
-            },
-            {
-                "hue": "#0066ff"
-            },
-            {
-                "saturation": 74
-            },
-            {
-                "lightness": 100
+                "color": "#efebe2"
             }
         ]
     },
@@ -94,49 +100,112 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "color": "#efebe2"
             }
         ]
     },
     {
-        "featureType": "road",
+        "featureType": "poi.attraction",
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "color": "#efebe2"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#efebe2"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.government",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#dfdcd5"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#dfdcd5"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#bad294"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.place_of_worship",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#efebe2"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#efebe2"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#efebe2"
             }
         ]
     },
     {
         "featureType": "road.highway",
-        "elementType": "all",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
         "stylers": [
             {
                 "visibility": "off"
-            },
-            {
-                "weight": 0.6
-            },
-            {
-                "saturation": -85
-            },
-            {
-                "lightness": 61
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "visibility": "on"
             }
         ]
     },
     {
         "featureType": "road.arterial",
-        "elementType": "all",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry.stroke",
         "stylers": [
             {
                 "visibility": "off"
@@ -145,10 +214,19 @@ const mapStyle = [
     },
     {
         "featureType": "road.local",
-        "elementType": "all",
+        "elementType": "geometry.fill",
         "stylers": [
             {
-                "visibility": "on"
+                "color": "#fbfbfb"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -157,7 +235,7 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "visibility": "off"
             }
         ]
     },
@@ -166,16 +244,7 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
-            },
-            {
-                "color": "#5f94ff"
-            },
-            {
-                "lightness": 26
-            },
-            {
-                "gamma": 5.86
+                "color": "#a5d7e0"
             }
         ]
     }

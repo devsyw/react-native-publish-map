@@ -6,7 +6,10 @@ import {
     SignUpNextPageBtn,
 } from './KogSignUpComp';
 
-export default function P006({navigation, route, options, back}){
+const bgImg = require("../../asset/image/si_done.gif")
+
+export default function SignInDone({navigation, route, options, back}){
+    
 
     return (
         <SafeAreaView style={styles.container}>
@@ -14,7 +17,7 @@ export default function P006({navigation, route, options, back}){
             <SignUpStatusBar color={'#FFFFEF'}/>
             
             {/** backgroung 이미지 */}
-            <ImageBackground source={require('../../../assets/image/tempImg.png')} resizeMode="contain" style={{width: '100%', height : '100%'}} />
+            <ImageBackground source={bgImg} resizeMode="cover" style={{width: '100%', height : '100%'}} />
 
             {/** 위 영역(1/2) */}
             <View style={styles.topArea}></View>
@@ -22,7 +25,7 @@ export default function P006({navigation, route, options, back}){
             {/** 아래 영역(1/2) */}
             <View style={styles.bottomArea}>
                 {/** 다음 페이지 이동 버튼 */}
-                <SignUpNextPageBtn navigation={navigation} pageName={''} backgroundColor={'#0416BA'} arrowColor={'#FFF'}/>
+                <SignUpNextPageBtn navigation={navigation} pageName={'SignInFriendsList'} backgroundColor={'#0416BA'} arrowColor={'#FFF'}/>
             </View>
         </SafeAreaView>
     )
