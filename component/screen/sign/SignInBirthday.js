@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { Fontisto } from '@expo/vector-icons';
 import { 
@@ -13,7 +13,7 @@ import {
 export default function SignInBirthday({navigation, route, options, back}){
 
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : null}>
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
 
@@ -59,13 +59,13 @@ export default function SignInBirthday({navigation, route, options, back}){
             <View style={styles.bottomArea}>
                 {/** 다음 페이지 이동 버튼 */}
                 <TouchableOpacity
-                    onPress={() => navigation.push('SignInCountry')} //테스트용
+                    onPress={() => navigation.push('SignInPhoneNumber')} //테스트용
                     style={[styles.nextPageBtn, {backgroundColor : '#FA517A'}]}
                 >
                     <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 

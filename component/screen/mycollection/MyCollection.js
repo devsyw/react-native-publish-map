@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FlatList, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { scale, moderateScale, verticalScale} from '../scaling';
+import { RandomHexColor } from './KogMyCollectionComp';
 
 /** 이미지 */
 const goldIcon = require('../../asset/icon/wm_coin_icon.png'); //골드 아이콘
@@ -12,7 +13,7 @@ const building2 = require('../../asset/image/mc_building2_img.png'); //빌딩2
 export const MyCollection = ({navigation}) => {
 
     /** FlatList sampledata(3개 불러옴) */
-    const DATA = [{id : 1},{id : 2}, {id: 3}]
+    const DATA = [{id : 1, bg: RandomHexColor},{id : 2, bg: RandomHexColor}, {id: 3, bg: RandomHexColor}]
     const itemListData = [{id : 1},{id : 2}, {id: 3}, {id : 4},{id : 5}, {id: 6}]
 
     /** 탭버튼 클릭시 색 변경 */
@@ -45,7 +46,7 @@ export const MyCollection = ({navigation}) => {
     const renderItem = ({item}) => {
         return (
             <TouchableOpacity style={styles.midArea_collectionBox}>
-                <View style={styles.midArea_collectionBox_ele}>
+                <View style={[styles.midArea_collectionBox_ele, {backgroundColor : item.bg()}]}>
                     <Image source={building1} style={styles.midArea_collectionBox_img} />
                 </View>
                 <Text style={styles.midArea_collectionBox_txt}>Building 1</Text>
@@ -261,7 +262,6 @@ const styles = StyleSheet.create({
     midArea_collectionBox_ele : {
         width: scale(160), 
         height: verticalScale(160),
-        backgroundColor : 'skyblue', 
         borderRadius : moderateScale(28),
         justifyContent : 'center',
         alignItems : 'center',
@@ -293,7 +293,8 @@ const styles = StyleSheet.create({
         width : moderateScale(110),
         height : moderateScale(33),
         justifyContent : 'center',
-        alignItems : 'center',
+        alignItems : 'flex-end',
+        paddingRight : scale(10),
         borderRadius : 20,
         backgroundColor : '#fff',
         zIndex : 1,

@@ -1,5 +1,5 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Platform, KeyboardAvoidingView, Button } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { Fontisto } from '@expo/vector-icons';
 import { 
@@ -9,11 +9,47 @@ import {
     SignUpStatusBar, 
     SignUpGoBackBtn
 } from './KogSignUpComp';
+import { 
+    YnModal, 
+    YModal 
+} from '../modal/ModalComp';
 
 export default function SignInPhoneNumber({navigation, route, options, back}){
+    /** 전화번호 확인 모달팝업 YN */
+    const [modalYn, setModalYn] = useState(false)
+
+    /** 새 인증번호 받기 모달팝업 YN */
+    const [vfModalYn, setVfModalYn] = useState(false)
+
+    /** 다음 페이지로 이동(모달팝업의 콜백 함수) */
+    const nextPage = () => {
+        navigation.push('SignInVerifyCode')
+    }
+
+    /** 인증번호 오류시 새 인증번호 받기(모달팝업의 콜백함수) */
+    const vfCallback = () => {
+        console.log('새 인증번호 받기')
+    }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : null}>
+            {/** (아니오, 예) 모달팝업 */}
+            <YnModal 
+                modalYn={modalYn} 
+                setModalYn={setModalYn} 
+                callback={nextPage}
+                msg={'입력하신 전화번호가 맞나요?'} 
+            />
+
+            {/** 새 인증번호 받기 모달 팝업 */}
+            <YModal
+                modalYn={vfModalYn} 
+                setModalYn={setVfModalYn} 
+                callback={vfCallback}
+                msg={'예상치 못한 인증오류 ㅜ^ㅜ'}
+                option={'새 인증번호 받기'}
+            />
+
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
 
@@ -24,14 +60,13 @@ export default function SignInPhoneNumber({navigation, route, options, back}){
                     <SignUpGoBackBtn navigation={navigation}/>
 
                     {/** 상단 현재 페이지 영역 */}
-                    <SignUpNowPage pageNum={4}/>
+                    <SignUpNowPage pageNum={3}/>
                 </View>
                 
                 {/** 소개 텍스트 영역 */}
                 <SignUpMainWord word={`USERNAME 님,\n전화번호로 본인확인을 해야해요!`}/>
                 
                 <View style={styles.topArea_bottom}>
-
 
                     {/** 전화번호 InputBox 영역 */}
                     <SignUpTextInput placeholder={'전화번호'} width={300} height={50} keyboardType = 'numeric' textAlign = 'center'  borderRadius={30}
@@ -48,13 +83,16 @@ export default function SignInPhoneNumber({navigation, route, options, back}){
             <View style={styles.bottomArea}>
                 {/** 다음 페이지 이동 버튼 */}
                 <TouchableOpacity
-                    onPress={() => navigation.push('SignInVerifyCode')} //테스트용
+                    onPress={() => {
+                        setModalYn(true) //전화번호 확인용 모달 팝업 활성화
+                        //setVfModalYn(true) //인증 오류시 모달 팝업 활성화
+                    }} //테스트용
                     style={[styles.nextPageBtn, {backgroundColor : '#FA517A'}]}
                 >
                     <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { Fontisto } from '@expo/vector-icons';
 import { 
@@ -20,7 +20,7 @@ export default function SignInCountry({navigation, route, options, back}){
     /** ----------------------------------------------- */
     
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : null}>
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
 
@@ -59,7 +59,7 @@ export default function SignInCountry({navigation, route, options, back}){
                     <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 

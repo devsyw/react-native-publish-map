@@ -15,7 +15,7 @@ const landImage = require('../../asset/image/mp_land_img.png'); // 랜드 이미
 export const MyProfile = ({navigation}) => {
 
     /** 소속한 랜드리스트 테스트 데이터(3개 불러옴) */
-    
+    const DATA = [{id: 1}, {id: 2}, {id :3}]
 
     /** 랜드 아이콘 터치 시 확대/축소 애니메이션 이벤트 로직 */
     const [ imgFlag1, setImgFlag1 ] = useState(true);
@@ -34,6 +34,32 @@ export const MyProfile = ({navigation}) => {
         )
     }
 
+    /** 탭버튼 클릭시 색 변경 */
+    const [tab1, setTab1] = useState(true); //첫 화면에서는 Tab1이 활성
+    const [tab2, setTab2] = useState(false);
+    const [tab3, setTab3] = useState(false);
+    const tabPress = (tab) => {
+        switch (tab) {
+            case 1 : 
+                setTab1(true)
+                setTab2(false)
+                setTab3(false)
+                break;
+            case 2 : 
+                setTab1(false)
+                setTab2(true)
+                setTab3(false)
+                break;
+            case 3 :
+                setTab1(false)
+                setTab2(false)
+                setTab3(true)
+                break;
+            default:
+                break;
+        }
+    }
+
     /** 랜드 FlatList */
     const renderItem = ({item}) => {
         return (
@@ -42,11 +68,12 @@ export const MyProfile = ({navigation}) => {
                 onPress={() => {
                     //애니메이션 처리 함수
                     handleAnimation(item.id, imgFlag1, imgFlag2, imgFlag3, setImgFlag1, setImgFlag2, setImgFlag3, imgResize1, imgResize2, imgResize3)
+                    tabPress(item.id);
                 }
             }>
-                {item.id == 1 ? <Animated.Image source={landImage} style={[styles.bottom_landImage, { transform : [ { scale : imgResize1 }, { translateY : -5 } ] }]}/> : null}
-                {item.id == 2 ? <Animated.Image source={landImage} style={[styles.bottom_landImage, { transform : [ { scale : imgResize2 }, { translateY : -5 } ] }]}/> : null}
-                {item.id == 3 ? <Animated.Image source={landImage} style={[styles.bottom_landImage, { transform : [ { scale : imgResize3 }, { translateY : -5 } ] }]}/> : null}
+                {item.id == 1 ? <Animated.Image source={landImage} style={[tab1 ? styles.bottom_landImageColor : styles.bottom_landImage, { transform : [ { scale : imgResize1 }, { translateY : -5 } ] }]}/> : null}
+                {item.id == 2 ? <Animated.Image source={landImage} style={[tab2 ? styles.bottom_landImageColor : styles.bottom_landImage, { transform : [ { scale : imgResize2 }, { translateY : -5 } ] }]}/> : null}
+                {item.id == 3 ? <Animated.Image source={landImage} style={[tab3 ? styles.bottom_landImageColor : styles.bottom_landImage, { transform : [ { scale : imgResize3 }, { translateY : -5 } ] }]}/> : null}
             </TouchableOpacity>
         )
     };
@@ -78,7 +105,7 @@ export const MyProfile = ({navigation}) => {
                 <View style={styles.topArea_toggle}>
                     <Image source={goldIcon} style={styles.top_toggle_goldIcon}></Image>
                     <View style={styles.topArea_toggleArea}>
-                        <Text>1,000</Text>
+                        <Text style={{textAlign: 'right'}}>1,000</Text>
                     </View>
                 </View>
             </View>
@@ -104,7 +131,7 @@ export const MyProfile = ({navigation}) => {
                             <View style={styles.midArea_contentLeft_txtArea}>
                                 {/** step 상단 텍스트 영역 */}
                                 <View style={styles.midArea_contentLeft_txtBox1}>
-                                    <Text style={styles.midArea_contentLeft_txtBoxTop1}>5,290</Text>
+                                    <Text style={styles.midArea_contentLeft_txtBoxTop1}>15,290</Text>
                                     <Text style={styles.midArea_contentLeft_txtBoxTop2}>steps</Text>
                                 </View>
 
@@ -191,7 +218,8 @@ export const MyProfile = ({navigation}) => {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        backgroundColor : '#fff'
+        backgroundColor : '#fff',
+
     }, 
     gobackBtn : {
         ...StyleSheet.absoluteFillObject,
@@ -373,7 +401,8 @@ const styles = StyleSheet.create({
         width : moderateScale(110),
         height : moderateScale(33),
         justifyContent : 'center',
-        alignItems : 'center',
+        alignItems : 'flex-end',
+        paddingRight : scale(10),
         borderRadius : 20,
         backgroundColor : '#fff',
         zIndex : 1,
@@ -437,6 +466,12 @@ const styles = StyleSheet.create({
         position : 'absolute',
         width : moderateScale(70),
         height : moderateScale(70),
+    },
+    bottom_landImageColor : {
+        position : 'absolute',
+        width : moderateScale(70),
+        height : moderateScale(70),
+        backgroundColor : 'skyblue',
     },
 });
 

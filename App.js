@@ -15,9 +15,12 @@ import ThreePrac from './component/effect/threejs/prac';
 import WebViewTest from './component/effect/threejs/webviewTest';
 
 /** WorldMap(월드맵) publish */
-import PubMapMain from './component/screen/map/PubMapMain';
+import WorldMap from './component/screen/map/WorldMap';
 
 /** SignIn(회원가입) publish */
+import SignInit from './component/screen/sign/SignInit'
+import SignInPms from './component/screen/sign/SignInPms'
+import SignInCrt from './component/screen/sign/SignInCrt'
 import SignInName from './component/screen/sign/SignInName'
 import SignInBirthday from './component/screen/sign/SignInBirthday'
 import SignInCountry from './component/screen/sign/SignInCountry'
@@ -43,7 +46,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={"MyProfileCrtChange"}
+                initialRouteName={"SignInit"}
                 screenOptions={{
                     headerShown: false, //top 영역을 보이게 할것인가?
                     headerTintColor:"white",
@@ -51,6 +54,9 @@ export default function App() {
                 }
             }>
                 {/** SignIn publish */}
+                <Stack.Screen name="SignInit" component={SignInit} />
+                <Stack.Screen name="SignInPms" component={SignInPms} />
+                <Stack.Screen name="SignInCrt" component={SignInCrt} />
                 <Stack.Screen name="SignInName" component={SignInName} />
                 <Stack.Screen name="SignInBirthday" component={SignInBirthday} />
                 <Stack.Screen name="SignInCountry" component={SignInCountry} />
@@ -62,7 +68,7 @@ export default function App() {
                 <Stack.Screen name="SignComplete" component={SignComplete} />
 
                 {/** Map publish */}
-                <Stack.Screen name="PubMapMain" component={PubMapMain} />
+                <Stack.Screen name="WorldMap" component={WorldMap} />
 
                 {/** MyProfile publish */}
                 <Stack.Screen name="MyProfile" component={MyProfile} />

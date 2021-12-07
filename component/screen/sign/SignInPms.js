@@ -1,28 +1,33 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
+import { Fontisto } from '@expo/vector-icons';
 import { 
     SignUpStatusBar, 
 } from './KogSignUpComp';
 
-const bgImg = require("../../asset/image/si_done.gif")
-
-export default function SignInDone({navigation, route, options, back}){
+export default function SignInPms({navigation, route, options, back}){
     
-
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : null}>
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
-            
-            {/** backgroung 이미지 */}
-            <ImageBackground source={bgImg} resizeMode="cover" style={{width: '100%', height : '100%'}} />
 
             {/** 위 영역(1/2) */}
-            <View style={styles.topArea}></View>
+            <View style={styles.topArea}>
+                <Text>권한 팝업 띄우기</Text>
+            </View>
 
             {/** 아래 영역(1/2) */}
-            <View style={styles.bottomArea}></View>
+            <View style={styles.bottomArea}>
+                {/** 다음 페이지 이동 버튼 */}
+                <TouchableOpacity
+                    onPress={() => navigation.push('SignInCrt')} //테스트용
+                    style={[styles.nextPageBtn, {backgroundColor : '#FA517A'}]}
+                >
+                    <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />
+                </TouchableOpacity>
+            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -35,12 +40,6 @@ const styles = StyleSheet.create({
     topArea : {
         flex : 1,
         justifyContent : 'center',
-    },
-    topArea_top : {
-        flex : 0.5,
-        flexDirection : 'row',
-        justifyContent: 'center',
-        alignItems : 'flex-start',
         marginTop : moderateScale(15),
     },
     bottomArea : {
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
     },
     topArea_bottom : {
         flex : 0.5,
-        flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
     },

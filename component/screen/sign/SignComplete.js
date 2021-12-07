@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, View, ImageBackground } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { 
     SignUpStatusBar, 
-    SignUpNextPageBtn,
 } from './KogSignUpComp';
 
 const bgImg = require("../../asset/image/si_welcome_effect.gif")

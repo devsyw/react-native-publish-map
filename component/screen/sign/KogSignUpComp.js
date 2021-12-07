@@ -56,8 +56,6 @@ export const SignUpNowPage = ({pageNum}) => {
             {pageNum == 1 ? <View style={styles.topPageBar}></View> : <View style={styles.topPageBar_empty}></View>}
             {pageNum == 2 ? <View style={styles.topPageBar}></View> : <View style={styles.topPageBar_empty}></View>}
             {pageNum == 3 ? <View style={styles.topPageBar}></View> : <View style={styles.topPageBar_empty}></View>}
-            {pageNum == 4 ? <View style={styles.topPageBar}></View> : <View style={styles.topPageBar_empty}></View>}
-            {pageNum == 5 ? <View style={styles.topPageBar}></View> : <View style={styles.topPageBar_empty}></View>}
         </View>
     )
 }

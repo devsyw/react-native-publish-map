@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
-import { Fontisto, AntDesign } from '@expo/vector-icons';
+import { Fontisto, AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { 
     SignUpTextInput, 
     SignUpStatusBar, 
 } from './KogSignUpComp';
+import { YModal } from '../modal/ModalComp';
 
 export default function SignInFriendsList({navigation, route, options, back}){
 
@@ -56,6 +57,9 @@ export default function SignInFriendsList({navigation, route, options, back}){
         },
     ]
 
+    /** 모달팝업 YN */
+    const [modalYn, setModalYn] = useState(true)
+
     /** FlatList Element */
     const renderItem = ({item}) => (
         <View style={{flex : 1, flexDirection : 'row'}}>
@@ -89,10 +93,17 @@ export default function SignInFriendsList({navigation, route, options, back}){
             <View style={styles.renderItem_sidePadding}></View>
         </View>
     );
-            
     
     return (
         <SafeAreaView style={styles.container}>
+            {/** 화면진입시 안내 팝업 */}
+            <YModal
+                modalYn={modalYn} 
+                setModalYn={setModalYn} 
+                msg={`'USERNAME' 님의\n첫번째 그룹을 만들어보세요!`}
+                subMsg={`최대 다섯명과 한 그룹이 될 수 있어요\n회원님 혼자만의 그룹도 가능하답니다:)`}
+            />
+
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
 
@@ -100,7 +111,10 @@ export default function SignInFriendsList({navigation, route, options, back}){
             <View style={styles.topArea}>
                 {/** 소개글 */}
                 <View style={styles.topArea_top}>
-                    <Text style={styles.topArea_top_txt}>가입한 친구들과 그룹을 맺어보세요!</Text>
+                    <Text style={styles.topArea_top_txt}>첫번째 그룹 만들기</Text>
+                    <TouchableOpacity>
+                        <FontAwesome5 name="question-circle" size={24} color="black" />
+                    </TouchableOpacity>
                 </View>
 
                 {/** 검색바 */}
@@ -160,11 +174,15 @@ const styles = StyleSheet.create({
     },
     topArea_top : {
         flex : 1,
-        justifyContent: 'flex-end',
-        alignItems : 'center',
+        flexDirection : 'row',
+        justifyContent: 'space-evenly',
+        alignItems : 'flex-end',
         marginBottom : moderateScale(20),
+        marginRight : scale(30),
+        marginLeft : scale(30),
     },
     topArea_top_txt : {
+        flex : 1,
         fontSize: moderateScale(22), 
         fontWeight : 'bold',
     },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackgroundBase, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale, moderateScale, verticalScale} from '../scaling';
 import { Fontisto } from '@expo/vector-icons';
 import { 
@@ -14,7 +14,7 @@ import {
 export default function SignInVerifyCode({navigation, route, options, back}){
 
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : null}>
             {/** 상단 스테이터스 바 */}
             <SignUpStatusBar color={'#FFFFEF'}/>
 
@@ -25,7 +25,7 @@ export default function SignInVerifyCode({navigation, route, options, back}){
                     <SignUpGoBackBtn navigation={navigation}/>
 
                     {/** 상단 현재 페이지 영역 */}
-                    <SignUpNowPage pageNum={5}/>
+                    <SignUpNowPage pageNum={3}/>
                 </View>
                 
                 {/** 소개 텍스트 영역 */}
@@ -33,32 +33,7 @@ export default function SignInVerifyCode({navigation, route, options, back}){
                 
                 <View style={styles.topArea_bottom}>
                     {/** 인증번호 InputBox 영역 */}
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
-                        /** 주석 해제 후 사용 */
-                        //onChangeText={onChangeNumber}
-                        //value={number}
-                    />
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
-                        /** 주석 해제 후 사용 */
-                        //onChangeText={onChangeNumber}
-                        //value={number}
-                    />
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
-                        /** 주석 해제 후 사용 */
-                        //onChangeText={onChangeNumber}
-                        //value={number}
-                    />
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
-                        /** 주석 해제 후 사용 */
-                        //onChangeText={onChangeNumber}
-                        //value={number}
-                    />
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
-                        /** 주석 해제 후 사용 */
-                        //onChangeText={onChangeNumber}
-                        //value={number}
-                    />
-                    <SignUpTextInput width={50} height={50} keyboardType = 'numeric' borderRadius = {15} maxLength = {1}
+                    <SignUpTextInput placeholder={'전화번호'} width={300} height={50} keyboardType = 'numeric' maxLength = {6} textAlign = 'center'  borderRadius={30}
                         /** 주석 해제 후 사용 */
                         //onChangeText={onChangeNumber}
                         //value={number}
@@ -76,7 +51,7 @@ export default function SignInVerifyCode({navigation, route, options, back}){
                     <Fontisto name="arrow-right" size={moderateScale(20)} color={'#FFF'} />
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 
