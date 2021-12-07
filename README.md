@@ -3,6 +3,8 @@ npm install react-native-viewport-units --save
 npm install @react-native-picker/picker
 npm install react-native-bouncy-checkbox
 expo install expo-linear-gradient
+expo install react-native-modal
+expo install react-native-map-clustering
 
 2. 퍼블시 사용 이미지 또는 아이콘 경로
 component > asset > ...
