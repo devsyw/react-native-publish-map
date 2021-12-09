@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         lineHeight: moderateScale(40),
     },
     gobackBtn : {
-        ...StyleSheet.absoluteFillObject,
+        position : 'absolute',
         top : moderateScale(15),
         left : moderateScale(15),
     },

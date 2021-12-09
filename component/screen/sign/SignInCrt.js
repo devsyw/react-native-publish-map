@@ -51,6 +51,7 @@ export default function SignInCrt({navigation, route, options, back}){
                 {/** 소개 텍스트 영역 */}
                 <SignUpMainWord word={`반가워요!\n나만의 캐릭터를 선택해보세요!`}/>
                 
+                {/** Bottom Padding */}
                 <View style={styles.topArea_bottom}></View>
             </View>
 

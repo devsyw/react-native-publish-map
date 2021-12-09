@@ -39,6 +39,9 @@ import { MyProfileCrtChange } from './component/screen/myprofile/MyProfileCrtCha
 import { MyCollection } from './component/screen/mycollection/MyCollection';
 import { MyCollectionItemInfo } from './component/screen/mycollection/MyCollectionItemInfo';
 
+/** Group(그룹) publish */
+import { MyGroup } from './component/screen/group/MyGroup';
+
 export default function App() {
     //StackNavigator
     const Stack = createStackNavigator();
@@ -46,7 +49,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={"SignInit"}
+                initialRouteName={"MyGroup"}
                 screenOptions={{
                     headerShown: false, //top 영역을 보이게 할것인가?
                     headerTintColor:"white",
@@ -65,7 +68,6 @@ export default function App() {
                 <Stack.Screen name="SignInDone" component={SignInDone} />
                 <Stack.Screen name="SignInFriendsList" component={SignInFriendsList} />
                 <Stack.Screen name="SignInInviteNewFriends" component={SignInInviteNewFriends} />
-                <Stack.Screen name="SignComplete" component={SignComplete} />
 
                 {/** Map publish */}
                 <Stack.Screen name="WorldMap" component={WorldMap} />
@@ -77,6 +79,9 @@ export default function App() {
                 {/** MyCollection publish */}
                 <Stack.Screen name="MyCollection" component={MyCollection} />
                 <Stack.Screen name="MyCollectionItemInfo" component={MyCollectionItemInfo} />
+
+                {/** MyGroup publish */}
+                <Stack.Screen name="MyGroup" component={MyGroup} />
 
                 {/** Animation samples */}
                 <Stack.Screen name="AnimationRoute" component={AnimationRoute}/>
