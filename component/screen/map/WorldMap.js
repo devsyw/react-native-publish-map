@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet, View, TouchableOpacity, Image, Platform, Dimensions, Text, Animated } from 'react-native';
 import {scale, verticalScale, moderateScale, width, height} from '../scaling';
-import { MapStyle, UserMarker, GoldBar } from './KogWorldMapComp';
+import { MapStyle1, UserMarker, GoldBar } from './KogWorldMapComp';
 import { EmojiModal, WorldModal } from '../modal/ModalComp';
 
 /** 상단 스테이터스 바 */
@@ -10,10 +10,6 @@ import { StatusBar } from 'expo-status-bar';
 /** React-Native-Map lib */
 import { PROVIDER_GOOGLE} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
-
-/** 하단 모달에 들어가는 이미지 */
-const financeMapBtn = require("../../asset/button/wm_finance_content_btn.png")
-const healthMapBtn = require("../../asset/button/wm_health_content_btn.png")
 
 /** 오른쪽 상단 메뉴바 안에 들어가는 이미지 */
 const groupBtn = require("../../asset/button/wm_group_btn.png")
@@ -24,10 +20,12 @@ const settingBtn = require("../../asset/button/wm_setting_btn.png")
 const goMapNaviBtn = require("../../asset/button/wm_locate_world_btn.png")
 const menuBtn = require("../../asset/button/wm_menu_btn.png")
 const locationBtn = require("../../asset/button/wm_location_btn.png")
-const coinIcon = require("../../asset/icon/wm_coin_icon.png")
 
 
 export default function WorldMap({navigation, route, options, back}){
+    /** 맵 스타일 */
+    const [mapSt, setMapSt] = useState(MapStyle1);
+
     /** 구글맵 객체 */
     const backgroundMap = useRef(); 
 
@@ -106,7 +104,7 @@ export default function WorldMap({navigation, route, options, back}){
             <StatusBar barStyle="dark-content" backgroundColor={'transparent'} translucent={true} />
             
             {/** Google Map View */}
-            <MapView ref={backgroundMap} style={styles.map} customMapStyle={MapStyle} provider={PROVIDER_GOOGLE}
+            <MapView ref={backgroundMap} style={styles.map} customMapStyle={mapSt} provider={PROVIDER_GOOGLE}
                 initialRegion={{
                     latitude: 37.78825,
                     longitude: -122.4324,
@@ -181,7 +179,6 @@ export default function WorldMap({navigation, route, options, back}){
                 <GoldBar gold={'10,000'} />
             </View>
             
-
             {/** 중앙 내 위치(로케이션) 버튼 */}
             <TouchableOpacity style={styles.centerLocationArea}>
                 <View style={styles.centerLocation}>
@@ -190,7 +187,7 @@ export default function WorldMap({navigation, route, options, back}){
             </TouchableOpacity>
             
             {/** 랜드/월드 이동 버튼 클릭시 맵 이동 언더팝업 */}
-            <WorldModal modalVisible={worldModalVisible} setModalVisible={setWorldModalVisible} />
+            <WorldModal modalVisible={worldModalVisible} setModalVisible={setWorldModalVisible} map={setMapSt}/>
 
             {/** 친구 마커 클릭시 뜨는 이모지 언더팝업 */}
             <EmojiModal modalVisible={modalVisible} setModalVisible={setModalVisible} />

@@ -8,9 +8,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 
 /** 이미지 */
-const town1 = require('../../asset/image/mg_town1_img.png'); //
-const town2 = require('../../asset/image/mg_town2_img.png'); //
-const town3 = require('../../asset/image/mg_town3_img.png'); //
+const town1 = require('../../asset/image/mg_town1_img.png'); 
+const town2 = require('../../asset/image/mg_town2_img.png'); 
+const town3 = require('../../asset/image/mg_town3_img.png'); 
 
 export const MyGroup = ({navigation}) => {
 
@@ -441,5 +441,19 @@ const styles = StyleSheet.create({
         borderRadius : 30,
         justifyContent : 'center',
         alignItems : 'center',
+        ...Platform.select({ 
+            ios: { 
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowOpacity: 0.23,
+                shadowRadius: 2.62,
+            }, 
+            android: { 
+                elevation: 4, 
+            }, 
+        }),
     },
 });

@@ -49,7 +49,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={"MyGroup"}
+                initialRouteName={"WorldMap"}
                 screenOptions={{
                     headerShown: false, //top 영역을 보이게 할것인가?
                     headerTintColor:"white",
