@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
         width : scale(250),
-        height : verticalScale(150),
+        height : verticalScale(180),
         borderRadius : moderateScale(20),
         backgroundColor : '#282828',
         opacity : 0.95,

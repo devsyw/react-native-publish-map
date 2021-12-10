@@ -1,18 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons, FontAwesome5, MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { scale, moderateScale, verticalScale } from '../scaling';
 import { GoldBar } from '../map/KogWorldMapComp';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
+import { YModal } from '../modal/ModalComp';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 /** 이미지 */
 const town1 = require('../../asset/image/mg_town1_img.png'); 
 const town2 = require('../../asset/image/mg_town2_img.png'); 
 const town3 = require('../../asset/image/mg_town3_img.png'); 
-
 export const MyGroup = ({navigation}) => {
+
+    /** 위치공유친구 버튼 클릭 Modal팝업(톱니바퀴버튼) */
+    const [locModal, setLocModal] = useState(false)
+
+    /** 위치공유 팝업 닫은 후 가입된 MemberBox index 조정 state */
+    const [intIndex, setIntIndex] = useState(false)
 
     /** 가입된 멤버 */
     const MemberBox = () => {
@@ -28,6 +35,21 @@ export const MyGroup = ({navigation}) => {
                 <View style={styles.bottom_memberNameArea}>
                     <Text style={styles.bottom_memberNameTxt}>나</Text>
                 </View>
+
+                {/** 위치공유 신청 시 체크박스 노출(기획보류) */}
+                {/* {
+                    intIndex ? (
+                        <View style={styles.bottom_memberLocCB}>
+                            <BouncyCheckbox
+                                size={moderateScale(24)}
+                                fillColor="blue"
+                                unfillColor="#dddddd"
+                                iconStyle={{ borderColor: "#fff" }}
+                                isChecked={false}
+                            />
+                        </View>
+                    ) : null
+                } */}
             </View>
         )
     }
@@ -142,12 +164,12 @@ export const MyGroup = ({navigation}) => {
                 {/** 그룹 뷰 하단 버튼 */}
                 <View style={styles.bottom_groupViewBottom}>
                     {/** 위치공유친구 버튼 */}
-                    <TouchableOpacity style={styles.bottom_btn1}>
+                    <TouchableOpacity style={styles.bottom_btn1} onPress={() => {setLocModal(true)}}>
                         <Ionicons name="settings-sharp" size={moderateScale(20)} color="#fff" />
                     </TouchableOpacity>
 
                     {/** 그룹 나가기 버튼 */}
-                    <TouchableOpacity style={styles.bottom_btn2}>
+                    <TouchableOpacity style={styles.bottom_btn2} onPress={() => {}}>
                         <FontAwesome5 name="sign-out-alt" size={moderateScale(20)} color="#fff" />
                     </TouchableOpacity>
                 </View>
@@ -159,7 +181,15 @@ export const MyGroup = ({navigation}) => {
         <SafeAreaView style={styles.container}>
             {/** 상단 스테이터스 바 */}
             <StatusBar barStyle="dark-content" backgroundColor={'#fff'} translucent={false} />
-
+            <YModal 
+                msg={'서로 위치를 공유할 친구를\n선택해주세요!'}
+                subMsg={'회원님과 친구가 서로 동의하면\n서로의 위치가 공개됩니다!'}
+                option={'알겠습니다'}
+                modalYn={locModal}
+                setModalYn={setLocModal}
+                callback={()=>setIntIndex(true)}
+            />
+            
             {/** 상단영역, 뒤로가기 및 골드 */}
             <View style={styles.topArea}>
                 {/** 뒤로가기 버튼 */}
@@ -198,10 +228,30 @@ export const MyGroup = ({navigation}) => {
                 </ScrollView>
             </View>
 
-            {/** 그룹 생성 버튼 */}
-            <TouchableOpacity style={styles.createGroupBtn}>
-                <Entypo name="plus" size={40} color="#fff" />
-            </TouchableOpacity>
+            {/** 그룹 생성 버튼, 위치공유 신청 시 잠깐 안보이게함 */}
+            {
+                !intIndex ? (
+                    <TouchableOpacity style={styles.createGroupBtn}>
+                        <Entypo name="plus" size={40} color="#fff" />
+                    </TouchableOpacity>
+                ) : null
+            }
+
+            {/** 위치공유 신청 시 완료버튼 노출 */}
+            {
+                intIndex ? (
+                    <View style={styles.locInviteArea}>
+                        <View style={styles.locInviteDoneBtn}>
+                            <TouchableOpacity style={styles.locInviteDoneBtn1} onPress={()=>{setIntIndex(false)}}>
+                                <Text style={styles.locInviteDoneTxt1}>완료</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.locInviteDoneBtn2} onPress={()=>{setIntIndex(false)}}>
+                                <Text style={styles.locInviteDoneTxt2}>취소</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                ) : null
+            }
         </SafeAreaView>
     ) 
 }
@@ -210,10 +260,15 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         backgroundColor : '#fff',
-
+        justifyContent : 'flex-end',
+        alignItems : 'center',
+    }, 
+    containerDark : {
+        flex : 1,
+        backgroundColor : 'rgba(0,0,0,0.5)',
     }, 
     gobackBtn : {
-        ...StyleSheet.absoluteFillObject,
+        position : 'absolute',
         top : moderateScale(20),
         left : moderateScale(15),
     },
@@ -297,6 +352,7 @@ const styles = StyleSheet.create({
         }),
     },
     bottom_groupScroll : {
+        backgroundColor : '#fff',
         marginHorizontal: scale(10), 
         marginVertical : 10,
     },
@@ -455,5 +511,48 @@ const styles = StyleSheet.create({
                 elevation: 4, 
             }, 
         }),
+    },
+    bottom_memberLocCB : {
+        position : 'absolute',
+        top : -10,
+        right : scale(-20),
+    },
+    locInviteArea : {
+        ...StyleSheet.absoluteFillObject,
+        alignItems : 'center',
+        flex : 1,
+        backgroundColor : 'rgba(0,0,0,0.5)',
+        zIndex : 5, 
+        elevation: (Platform.OS === 'android') ? 50 : 0,
+    },
+    locInviteDoneBtn :{
+        position : 'absolute',
+        flexDirection : 'row',
+        bottom : 20,
+    },
+    locInviteDoneBtn1 : {
+        width : scale(130),
+        height : moderateScale(40),
+        backgroundColor : '#3298FF',
+        borderRadius : 20,
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    locInviteDoneBtn2 : {
+        width : scale(130),
+        height : moderateScale(40),
+        backgroundColor : '#fff',
+        borderRadius : 20,
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    locInviteDoneTxt1 : {
+        fontSize : moderateScale(16),
+        color : '#fff',
+        fontWeight : 'bold',
+    },
+    locInviteDoneTxt2 : {
+        fontSize : moderateScale(16),
+        color : '#696969',
     },
 });
