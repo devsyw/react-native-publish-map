@@ -33,6 +33,7 @@ export const MyProfile = ({navigation}) => {
             </TouchableOpacity>
         )
     }
+    
 
     /** 탭버튼 클릭시 색 변경 */
     const [tab1, setTab1] = useState(true); //첫 화면에서는 Tab1이 활성

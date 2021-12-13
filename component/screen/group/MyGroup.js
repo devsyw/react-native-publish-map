@@ -13,6 +13,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 const town1 = require('../../asset/image/mg_town1_img.png'); 
 const town2 = require('../../asset/image/mg_town2_img.png'); 
 const town3 = require('../../asset/image/mg_town3_img.png'); 
+const noGroupImg = require('../../asset/image/mg_no_group_img.png'); 
 export const MyGroup = ({navigation}) => {
 
     /** 위치공유친구 버튼 클릭 Modal팝업(톱니바퀴버튼) */
@@ -33,7 +34,8 @@ export const MyGroup = ({navigation}) => {
                     </View>
                 </View>
                 <View style={styles.bottom_memberNameArea}>
-                    <Text style={styles.bottom_memberNameTxt}>나</Text>
+                    <Text style={styles.bottom_memberNameTxt}>나
+                    </Text>
                 </View>
 
                 {/** 위치공유 신청 시 체크박스 노출(기획보류) */}
@@ -100,11 +102,14 @@ export const MyGroup = ({navigation}) => {
     /** 멤버 초대 */
     const MemberInvite = () => {
         return (
-            <TouchableOpacity style={[styles.bottom_memberEle, {
-                backgroundColor : '#c4c4c4',
-                justifyContent : 'center',
-                alignItems : 'center'
-            }]}>
+            <TouchableOpacity 
+                style={[styles.bottom_memberEle, {
+                    backgroundColor : '#c4c4c4',
+                    justifyContent : 'center',
+                    alignItems : 'center',
+                }]}
+                onPress={()=>{}}
+            >
                 <AntDesign name="pluscircleo" size={24} color="#fff" />
             </TouchableOpacity>
         )
@@ -177,6 +182,74 @@ export const MyGroup = ({navigation}) => {
         )
     }
 
+    /** 그룹요청목록뷰 */
+    const InvGroupObject = () => {
+        return (
+            <View style={styles.bottom_groupView}>
+                {/** 그룹 이름 및 모드 */}
+                <View style={styles.bottom_groupViewTop}>
+                    {/** 이름 및 모드 */}
+                    <View style={styles.bottom_topLeft}>
+                        <Text style={styles.bottom_topLeft1}>틀림없는 딱따구리들</Text>
+                        <View style={styles.bottom_topLeftIn}>
+                            {/** 함께공유모드시 마커 아이콘 */}
+                            {/* <MaterialIcons name="location-pin" size={12} color="#fff" /> */} 
+                            <MaterialIcons name="not-listed-location" size={12} color="#fff" />
+                            <Text style={styles.bottom_topLeft2}> 사생활 보호모드</Text>
+                        </View>
+                    </View>
+
+                    {/** 이름 편집 버튼 */}
+                    <View style={styles.bottom_topRight}>
+                        <TouchableOpacity>
+                            <FontAwesome5 name="pen" size={moderateScale(20)} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/** 그룹 이미지 및 멤버 */}
+                <View style={styles.bottom_groupViewMid}>
+                    {/** 타운 이미지 */}
+                    <View style={styles.bottom_midLeft}>
+                        <Image source={town1} style={styles.bottom_midLeftImg}/>
+                        <View style={styles.bottom_midLeftIvtView}>
+                            <View style={styles.bottom_midLeftIvtViewRow1}>
+                                <Text style={styles.bottom_midLeftIvtViewTxt1}>응답까지 남은 시간: </Text>
+                                <Text style={styles.bottom_midLeftIvtViewTxt2}>1일</Text>
+                            </View>
+                            <View style={styles.bottom_midLeftIvtViewRow2}>
+                                <Progress.Bar progress={0.7} width={scale(140)} height={verticalScale(20)} borderRadius={moderateScale(20)} color={"#FA517A"} />
+                            </View>
+                        </View>
+                    </View>
+
+                    {/** 그룹 멤버 리스트 */}
+                    <View style={styles.bottom_midRight}>
+                        <View style={styles.bottom_memberArea}>
+                            {/** 가입된 멤버 */}
+                            <MemberBox />
+                            <MemberBox />
+                            <MemberBox />
+                        </View>
+                    </View>
+                </View>
+
+                {/** 그룹 뷰 하단 버튼 */}
+                <View style={styles.bottom_groupIvtViewBottom}>
+                    {/** 위치공유친구 버튼 */}
+                    <TouchableOpacity style={styles.bottom_ivtBtn1} onPress={() => {}}>
+                        <Text style={styles.bottom_ivtBtnTxt}>거절하기</Text>
+                    </TouchableOpacity>
+
+                    {/** 그룹 나가기 버튼 */}
+                    <TouchableOpacity style={styles.bottom_ivtBtn2} onPress={() => {}}>
+                        <Text style={[styles.bottom_ivtBtnTxt, {color : '#fff'}]}>수락하기</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             {/** 상단 스테이터스 바 */}
@@ -222,16 +295,30 @@ export const MyGroup = ({navigation}) => {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator ={false}
                 >
-                    {/** 그룹 오브젝트 */}
                     <GroupObject />
                     <GroupObject />
+
+                    {/** 그룹요청 목록 뷰 */}
+                    {/* <InvGroupObject />
+                    <InvGroupObject /> */}
                 </ScrollView>
+
+                {/** 그룹이 존재하지 않을 시(주석풀고사용), 12.13 수정 */}
+                {/* <View style={styles.bottomArea_noGroup}>
+                    <View style={{flex : 0.5}}></View>
+                    <View style={{flex : 1, justifyContent : 'center', alignItems : 'center',}}>
+                        <Image source={noGroupImg} style={styles.bottomArea_noGroupImg}/>
+                        <Text style={styles.bottomArea_noGroupTxt1}>그룹을 만들어봐요!</Text>
+                        <Text style={styles.bottomArea_noGroupTxt2}>친구들과 그룹을 만들고 함께 활동해봐요!</Text>
+                    </View>
+                    <View style={{flex : 1}}></View>
+                </View> */}
             </View>
 
             {/** 그룹 생성 버튼, 위치공유 신청 시 잠깐 안보이게함 */}
             {
                 !intIndex ? (
-                    <TouchableOpacity style={styles.createGroupBtn}>
+                    <TouchableOpacity style={styles.createGroupBtn} onPress={()=>{navigation.push('GroupCreateInv')}}>
                         <Entypo name="plus" size={40} color="#fff" />
                     </TouchableOpacity>
                 ) : null
@@ -257,11 +344,10 @@ export const MyGroup = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    container : {
+    container : { //12.13 수정
         flex : 1,
         backgroundColor : '#fff',
         justifyContent : 'flex-end',
-        alignItems : 'center',
     }, 
     containerDark : {
         flex : 1,
@@ -289,7 +375,29 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
     }, 
-
+    bottomArea_noGroup : {
+        flex : 1, 
+        width: '80%', 
+        height : '80%', 
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottomArea_noGroupImg : {
+        width: moderateScale(170), 
+        height: moderateScale(170), 
+        resizeMode : 'contain',
+    },
+    bottomArea_noGroupTxt1 : {
+        fontSize : moderateScale(20),
+        fontWeight : 'bold',
+        color : '#cccccc',
+        marginTop : verticalScale(10),
+        marginBottom : verticalScale(10)
+    },
+    bottomArea_noGroupTxt2 : {
+        fontSize : moderateScale(12),
+        color : '#cccccc',
+    },
     midArea_txtArea : {
         flex : 1, 
         justifyContent : 'center', 
@@ -356,8 +464,8 @@ const styles = StyleSheet.create({
         marginHorizontal: scale(10), 
         marginVertical : 10,
     },
-    bottom_groupView : {
-        width : scale(280),
+    bottom_groupView : { 
+        width : scale(310), //12.13 수정
         height : verticalScale(470),
         backgroundColor : '#000',
         borderRadius : moderateScale(30),
@@ -392,6 +500,34 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         marginRight : scale(20),
         marginBottom : verticalScale(5),
+    },
+    bottom_groupIvtViewBottom : {
+        flex : 1,
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottom_ivtBtn1 : {
+        width : scale(120),
+        height : moderateScale(40),
+        backgroundColor : '#fff',
+        borderRadius : moderateScale(20),
+        margin : moderateScale(10),
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottom_ivtBtn2 : {
+        width : scale(120),
+        height : moderateScale(40),
+        backgroundColor : '#3298FF',
+        borderRadius : moderateScale(20),
+        margin : moderateScale(10),
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottom_ivtBtnTxt : {
+        fontSize : moderateScale(12),
+        fontWeight : 'bold',
     },
     bottom_topLeft : {
         flex : 1,
@@ -428,6 +564,33 @@ const styles = StyleSheet.create({
         width : moderateScale(200), 
         height: moderateScale(260), 
         resizeMode: 'contain',
+    },
+    bottom_midLeftIvtView : {
+        position : 'absolute',
+        width : moderateScale(170), 
+        height: moderateScale(60),
+        backgroundColor : 'rgba(255,255,255,0.8)',
+        bottom : verticalScale(30), 
+        borderRadius : moderateScale(20),
+        padding : moderateScale(5),
+    },
+    bottom_midLeftIvtViewRow1 : {
+        flex : 0.4, 
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottom_midLeftIvtViewRow2 : {
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    bottom_midLeftIvtViewTxt1 : {
+        fontSize : moderateScale(12),
+    },
+    bottom_midLeftIvtViewTxt2 : {
+        fontSize : moderateScale(12),
+        fontWeight : 'bold',
     },
     bottom_midRight : {
         flex : 1.2,

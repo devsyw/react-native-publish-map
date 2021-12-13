@@ -7,7 +7,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Entypo } from '@expo/vector-icons'; 
 
 /** (아니오,예) 모달 팝업 */
-export const YnModal = ({msg, modalYn, setModalYn, callback}) => {
+export const YnModal = ({msg, subMsg, modalYn, setModalYn, callback, cancleCallback}) => {
     return (
         <Modal
             isVisible = {modalYn}
@@ -19,9 +19,18 @@ export const YnModal = ({msg, modalYn, setModalYn, callback}) => {
                 <View style={styles.modalQBox}>
                     <Text style={styles.modalTxt}>{msg}</Text>
                 </View>
-                
+                {
+                    subMsg ? (
+                        <View style={styles.modalSubQBox}>
+                            <Text style={styles.modalSubTxt}>{subMsg}</Text>
+                        </View>
+                    ) : null
+                }
                 <View style={styles.modalBtn}>
-                    <TouchableOpacity style={styles.modalYnBtn} onPress={() => setModalYn(false)}>
+                    <TouchableOpacity style={styles.modalYnBtn} onPress={() => {
+                        cancleCallback ? cancleCallback() : null;
+                        setModalYn(false)
+                    }}>
                         <Text style={styles.modalTxtYn}>아니요</Text>
                     </TouchableOpacity>
 

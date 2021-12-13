@@ -41,6 +41,13 @@ import { MyCollectionItemInfo } from './component/screen/mycollection/MyCollecti
 
 /** Group(그룹) publish */
 import { MyGroup } from './component/screen/group/MyGroup';
+import GroupCreateInv from './component/screen/group/GroupCreateInv';
+import GroupCreateSet from './component/screen/group/GroupCreateSet';
+import GroupCreateName from './component/screen/group/GroupCreateName';
+import GroupCreateTown from './component/screen/group/GroupCreateTown';
+import GroupCreateTownName from './component/screen/group/GroupCreateTownName';
+import GroupCreateTownMarker from './component/screen/group/GroupCreateTownMarker';
+import GroupCreateDone from './component/screen/group/GroupCreateDone';
 
 export default function App() {
     //StackNavigator
@@ -82,6 +89,13 @@ export default function App() {
 
                 {/** MyGroup publish */}
                 <Stack.Screen name="MyGroup" component={MyGroup} />
+                <Stack.Screen name="GroupCreateInv" component={GroupCreateInv} />
+                <Stack.Screen name="GroupCreateSet" component={GroupCreateSet} />
+                <Stack.Screen name="GroupCreateName" component={GroupCreateName} />
+                <Stack.Screen name="GroupCreateTown" component={GroupCreateTown} />
+                <Stack.Screen name="GroupCreateTownName" component={GroupCreateTownName} />
+                <Stack.Screen name="GroupCreateTownMarker" component={GroupCreateTownMarker} />
+                <Stack.Screen name="GroupCreateDone" component={GroupCreateDone} />
 
                 {/** Animation samples */}
                 <Stack.Screen name="AnimationRoute" component={AnimationRoute}/>
