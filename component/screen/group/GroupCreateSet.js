@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, TextInput, StatusBar, Platform } from 'react-native';
 import { scale, moderateScale, verticalScale, height, width} from '../scaling';
 import { Fontisto, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { 
@@ -55,7 +55,7 @@ export default function GroupCreateSet({navigation, route, options, back}){
             <Text style={!item.isMe ? styles.topArea_midBoxTxt : [styles.topArea_midBoxTxt, {color: '#fff'}]}>{item.name}</Text>
             {!item.isMe ? (
                 <TouchableOpacity style={styles.topArea_midBoxClose}>
-                    <FontAwesome name="close" size={12} color="#c4c4c4" />
+                    <FontAwesome name="close" size={moderateScale(12)} color="#c4c4c4" />
                 </TouchableOpacity> 
             ) : null}
         </View>
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
     },
     bottomArea : {
         flex : 0.3,
+        marginBottom : Platform.OS === 'android' ? verticalScale(10) : 0, // 12.14 수정(임시)
         justifyContent : 'flex-end',
         alignItems : 'flex-end',
     },
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
         backgroundColor : '#f3f4f8'
     },
     topArea_midBoxTxt : {
-        fontSize : 10,
+        fontSize : moderateScale(10), // 12.14 수정
         color : '#5A67AB',
     },
     topArea_midBoxClose : {

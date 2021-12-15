@@ -6,8 +6,7 @@ import { scale, moderateScale, verticalScale } from '../scaling';
 import { GoldBar } from '../map/KogWorldMapComp';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
-import { YModal } from '../modal/ModalComp';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { UserLocIvtModal } from '../modal/ModalComp'; //12.15 수정
 
 /** 이미지 */
 const town1 = require('../../asset/image/mg_town1_img.png'); 
@@ -16,11 +15,8 @@ const town3 = require('../../asset/image/mg_town3_img.png');
 const noGroupImg = require('../../asset/image/mg_no_group_img.png'); 
 export const MyGroup = ({navigation}) => {
 
-    /** 위치공유친구 버튼 클릭 Modal팝업(톱니바퀴버튼) */
+    /** 위치공유친구 Modal팝업(로케이션 버튼) */
     const [locModal, setLocModal] = useState(false)
-
-    /** 위치공유 팝업 닫은 후 가입된 MemberBox index 조정 state */
-    const [intIndex, setIntIndex] = useState(false)
 
     /** 가입된 멤버 */
     const MemberBox = () => {
@@ -166,17 +162,21 @@ export const MyGroup = ({navigation}) => {
                     </View>
                 </View>
 
-                {/** 그룹 뷰 하단 버튼 */}
+                {/** 그룹 뷰 하단 버튼, 12.15 수정(스타일은 통째로 덮어쓰세요) */}
                 <View style={styles.bottom_groupViewBottom}>
-                    {/** 위치공유친구 버튼 */}
-                    <TouchableOpacity style={styles.bottom_btn1} onPress={() => {setLocModal(true)}}>
-                        <Ionicons name="settings-sharp" size={moderateScale(20)} color="#fff" />
-                    </TouchableOpacity>
 
                     {/** 그룹 나가기 버튼 */}
-                    <TouchableOpacity style={styles.bottom_btn2} onPress={() => {}}>
-                        <FontAwesome5 name="sign-out-alt" size={moderateScale(20)} color="#fff" />
+                    <TouchableOpacity style={styles.bottom_btn1} onPress={() => {}}>
+                        <FontAwesome5 name="sign-out-alt" size={moderateScale(24)} color="#fff" />
                     </TouchableOpacity>
+
+                    {/** 위치공유친구 버튼 */}
+                    <TouchableOpacity style={styles.bottom_btn2} onPress={() => {setLocModal(true)}}>
+                        <MaterialIcons name="add-location" size={moderateScale(28)} color="#fff" />
+                        {/** 알림, 빨간 동그라미 */}
+                        <View style={styles.midArea_invAlr}></View>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         )
@@ -194,7 +194,7 @@ export const MyGroup = ({navigation}) => {
                         <View style={styles.bottom_topLeftIn}>
                             {/** 함께공유모드시 마커 아이콘 */}
                             {/* <MaterialIcons name="location-pin" size={12} color="#fff" /> */} 
-                            <MaterialIcons name="not-listed-location" size={12} color="#fff" />
+                            <MaterialIcons name="not-listed-location" size={moderateScale(12)} color="#fff" />
                             <Text style={styles.bottom_topLeft2}> 사생활 보호모드</Text>
                         </View>
                     </View>
@@ -230,6 +230,8 @@ export const MyGroup = ({navigation}) => {
                             <MemberBox />
                             <MemberBox />
                             <MemberBox />
+                            <MemberBox />
+                            <MemberBlockBox />
                         </View>
                     </View>
                 </View>
@@ -254,13 +256,14 @@ export const MyGroup = ({navigation}) => {
         <SafeAreaView style={styles.container}>
             {/** 상단 스테이터스 바 */}
             <StatusBar barStyle="dark-content" backgroundColor={'#fff'} translucent={false} />
-            <YModal 
-                msg={'서로 위치를 공유할 친구를\n선택해주세요!'}
-                subMsg={'회원님과 친구가 서로 동의하면\n서로의 위치가 공개됩니다!'}
-                option={'알겠습니다'}
+
+            {/** 그룹원 위치 공유 모달팝업, 12.15 수정(ModalComp.js파일 업데이트 바랍니다) */}
+            <UserLocIvtModal 
+                msg={'ㅇㅇ'}
+                option={'ㄴㄴㅇㅇㅇㅇ'}
                 modalYn={locModal}
                 setModalYn={setLocModal}
-                callback={()=>setIntIndex(true)}
+                callback={()=>{}}
             />
             
             {/** 상단영역, 뒤로가기 및 골드 */}
@@ -283,7 +286,8 @@ export const MyGroup = ({navigation}) => {
 
                 <TouchableOpacity style={styles.midArea_invBtn}>
                     <FontAwesome5 name="user-check" size={moderateScale(10)} color="#5A67AB" />
-                    <Text style={styles.miArea_invTxt}>그룹 요청 목록</Text>
+                    <Text style={styles.midArea_invTxt}>그룹 요청 목록</Text>
+                    <View style={styles.midArea_invAlr}></View>
                 </TouchableOpacity>
             </View>
 
@@ -298,7 +302,7 @@ export const MyGroup = ({navigation}) => {
                     <GroupObject />
                     <GroupObject />
 
-                    {/** 그룹요청 목록 뷰 */}
+                    {/** 그룹요청 목록 뷰 12.13 수정 */}
                     {/* <InvGroupObject />
                     <InvGroupObject /> */}
                 </ScrollView>
@@ -317,18 +321,20 @@ export const MyGroup = ({navigation}) => {
 
             {/** 그룹 생성 버튼, 위치공유 신청 시 잠깐 안보이게함 */}
             {
-                !intIndex ? (
+                !locModal ? (
                     <TouchableOpacity style={styles.createGroupBtn} onPress={()=>{navigation.push('GroupCreateInv')}}>
                         <Entypo name="plus" size={40} color="#fff" />
                     </TouchableOpacity>
                 ) : null
             }
 
-            {/** 위치공유 신청 시 완료버튼 노출 */}
-            {
+            {/** 위치공유 신청 시 완료버튼 노출, 12.15 수정(삭제) */}
+            {/* {
                 intIndex ? (
                     <View style={styles.locInviteArea}>
                         <View style={styles.locInviteDoneBtn}>
+
+
                             <TouchableOpacity style={styles.locInviteDoneBtn1} onPress={()=>{setIntIndex(false)}}>
                                 <Text style={styles.locInviteDoneTxt1}>완료</Text>
                             </TouchableOpacity>
@@ -338,7 +344,7 @@ export const MyGroup = ({navigation}) => {
                         </View>
                     </View>
                 ) : null
-            }
+            } */}
         </SafeAreaView>
     ) 
 }
@@ -417,11 +423,20 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         marginRight : moderateScale(26)
     }, 
-    miArea_invTxt : {
+    midArea_invTxt : {
         fontSize : moderateScale(11),
         color : '#5A67AB',
         marginLeft : scale(5),
     },  
+    midArea_invAlr : {
+        width : moderateScale(10), 
+        height : moderateScale(10), 
+        backgroundColor : '#FA517A', 
+        position : 'absolute', 
+        right : 0, 
+        top : 0, 
+        borderRadius : 100
+    },
     topArea_toggle : {
         flex : 1, 
         flexDirection : 'row',
@@ -462,7 +477,7 @@ const styles = StyleSheet.create({
     bottom_groupScroll : {
         backgroundColor : '#fff',
         marginHorizontal: scale(10), 
-        marginVertical : 10,
+        // marginVertical : 10, // 12.14 수정
     },
     bottom_groupView : { 
         width : scale(310), //12.13 수정
@@ -484,21 +499,21 @@ const styles = StyleSheet.create({
     bottom_groupViewBottom : {
         flex : 1,
         flexDirection : 'row',
-        justifyContent : 'flex-end',
+        justifyContent : 'flex-start',
         alignItems : 'center',
     },
     bottom_btn1 : {
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        marginRight : scale(20),
+        marginLeft : scale(25),
         marginBottom : verticalScale(5),
     },
     bottom_btn2 : {
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        marginRight : scale(20),
+        marginLeft : scale(20),
         marginBottom : verticalScale(5),
     },
     bottom_groupIvtViewBottom : {
@@ -565,10 +580,10 @@ const styles = StyleSheet.create({
         height: moderateScale(260), 
         resizeMode: 'contain',
     },
-    bottom_midLeftIvtView : {
+    bottom_midLeftIvtView : { // 12.14 수정
         position : 'absolute',
-        width : moderateScale(170), 
-        height: moderateScale(60),
+        width : scale(170), 
+        height: verticalScale(60),
         backgroundColor : 'rgba(255,255,255,0.8)',
         bottom : verticalScale(30), 
         borderRadius : moderateScale(20),
@@ -657,7 +672,7 @@ const styles = StyleSheet.create({
         backgroundColor : '#FA517A',
         bottom : 20,
         right : 20,
-        borderRadius : 30,
+        borderRadius : moderateScale(30), // 12.14 수정
         justifyContent : 'center',
         alignItems : 'center',
         ...Platform.select({ 

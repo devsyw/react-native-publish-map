@@ -58,10 +58,10 @@ export default function GroupCreateTownName({navigation, route, options, back}){
                         maxLength = {11}
                         fontSize={moderateScale(18)}
                         width={scale(300, 0.3)}
-                        height={moderateScale(40, 0.2)}
+                        height={moderateScale(40)} //12.14 수정
                         textAlign={'center'}
                         backgroundColor={'#E2E8EF'}
-                        borderRadius={30}
+                        borderRadius={moderateScale(30)} //12.14 수정
                         keyboardDidChangeFrame={false}
                     />
                 </View>
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     },
     bottomArea : {
         flex : 0.3,
+        marginBottom : Platform.OS === 'android' ? verticalScale(10) : 0, // 12.14 수정(임시)
         justifyContent : 'flex-end',
         alignItems : 'flex-end',
     },
@@ -135,10 +136,10 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(22), 
         fontWeight : 'bold',
     },
-    topArea_midBoxImg : {
+    topArea_midBoxImg : { // 12.14 수정
         resizeMode : 'contain',
-        width : 200,
-        height : 200,
+        width : moderateScale(200),
+        height : moderateScale(200),
     },
     nextPageBtn : {
         width : moderateScale(80, 0.3),

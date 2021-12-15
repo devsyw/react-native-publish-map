@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet, View, TouchableOpacity, Image, Platform, Dimensions, Text, Animated } from 'react-native';
 import {scale, verticalScale, moderateScale, width, height} from '../scaling';
 import { MapStyle1, UserMarker, GoldBar } from './KogWorldMapComp';
-import { EmojiModal, WorldModal } from '../modal/ModalComp';
+import { EmojiModal, WorldModal, UserInfoModal } from '../modal/ModalComp';
 
 /** 상단 스테이터스 바 */
 import { StatusBar } from 'expo-status-bar';
@@ -72,6 +72,12 @@ export default function WorldMap({navigation, route, options, back}){
 
     /** 모달팝업(월드/랜드) */
     const [ worldModalVisible, setWorldModalVisible ] = useState({
+        modalYn : false,
+        user : {}
+    });
+
+    /** 모달팝업(내정보) */
+    const [ userInfoModalVisible, setUserInfoModalVisible ] = useState({
         modalYn : false,
         user : {}
     });
@@ -187,10 +193,25 @@ export default function WorldMap({navigation, route, options, back}){
             </TouchableOpacity>
             
             {/** 랜드/월드 이동 버튼 클릭시 맵 이동 언더팝업 */}
-            <WorldModal modalVisible={worldModalVisible} setModalVisible={setWorldModalVisible} map={setMapSt}/>
+            <WorldModal 
+                modalVisible={worldModalVisible} 
+                setModalVisible={setWorldModalVisible} 
+                map={setMapSt}
+            />
 
             {/** 친구 마커 클릭시 뜨는 이모지 언더팝업 */}
-            <EmojiModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <EmojiModal 
+                modalVisible={modalVisible} 
+                setModalVisible={setModalVisible} 
+                setUserInfoModalVisible={setUserInfoModalVisible}
+            />
+
+            {/** 내정보 언더팝업, 상대정보와 동일한 레이아웃, 데이터만 갈아끼우면 됩니다. 12.14 수정 */}
+            <UserInfoModal 
+                modalVisible={userInfoModalVisible} 
+                setModalVisible={setUserInfoModalVisible} 
+                navigation={navigation}
+            />
         </View>
     )
 };

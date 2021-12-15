@@ -17,6 +17,9 @@ import WebViewTest from './component/effect/threejs/webviewTest';
 /** WorldMap(월드맵) publish */
 import WorldMap from './component/screen/map/WorldMap';
 
+/** MyItem(내 아이템/명예템) publish */
+import { MyItem } from './component/screen/item/MyItem';
+
 /** SignIn(회원가입) publish */
 import SignInit from './component/screen/sign/SignInit'
 import SignInPms from './component/screen/sign/SignInPms'
@@ -78,6 +81,9 @@ export default function App() {
 
                 {/** Map publish */}
                 <Stack.Screen name="WorldMap" component={WorldMap} />
+
+                {/** MyItem publish */}
+                <Stack.Screen name="MyItem" component={MyItem} />
 
                 {/** MyProfile publish */}
                 <Stack.Screen name="MyProfile" component={MyProfile} />

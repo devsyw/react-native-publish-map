@@ -49,7 +49,7 @@ export default function GroupCreateName({navigation, route, options, back}){
             <Text style={!item.isMe ? styles.topArea_midBoxTxt : [styles.topArea_midBoxTxt, {color: '#fff'}]}>{item.name}</Text>
             {!item.isMe ? (
                 <TouchableOpacity style={styles.topArea_midBoxClose}>
-                    <FontAwesome name="close" size={12} color="#c4c4c4" />
+                    <FontAwesome name="close" size={moderateScale(12)} color="#c4c4c4" />
                 </TouchableOpacity> 
             ) : null}
         </View>
@@ -120,7 +120,7 @@ export default function GroupCreateName({navigation, route, options, back}){
                         maxLength = {11}
                         fontSize={moderateScale(18)}
                         width={scale(300, 0.3)}
-                        height={moderateScale(40, 0.2)}
+                        height={moderateScale(40)} // 12.14 수정
                         textAlign={'center'}
                         backgroundColor={'#E2E8EF'}
                         borderRadius={30}
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     
     bottomArea : {
         flex : 0.3,
+        marginBottom : Platform.OS === 'android' ? verticalScale(10) : 0, // 12.14 수정(임시)
         justifyContent : 'flex-end',
         alignItems : 'flex-end',
     },
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
         backgroundColor : '#f3f4f8'
     },
     topArea_midBoxTxt : {
-        fontSize : 10,
+        fontSize : moderateScale(10), // 12.14 수정
         color : '#5A67AB',
     },
     topArea_midBoxClose : {

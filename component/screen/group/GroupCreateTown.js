@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     
     bottomArea : {
         flex : 0.3,
+        marginBottom : Platform.OS === 'android' ? verticalScale(10) : 0, // 12.14 수정(임시)
         justifyContent : 'flex-end',
         alignItems : 'flex-end',
     },
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         width : moderateScale(100),
         height : moderateScale(100),
-        borderRadius : 20,
+        borderRadius : moderateScale(20), // 12.14 수정
         ...Platform.select({ 
             ios: { 
                 shadowColor: "#000",
@@ -160,10 +161,10 @@ const styles = StyleSheet.create({
             }, 
         }),
     },
-    topArea_midBoxImg : {
+    topArea_midBoxImg : { // 12.14 수정
         resizeMode : 'contain',
-        width : 120,
-        height : 120,
+        width : moderateScale(130),
+        height : moderateScale(130),
     },
     nextPageBtn : {
         width : moderateScale(80, 0.3),

@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         justifyContent : 'flex-end',
         alignItems : 'center',
         backgroundColor : '#fff',
-        borderRadius : 20,
+        borderRadius : moderateScale(20), // 12.14 수정
         opacity : 0.95,
         ...Platform.select({ 
             ios: { 
