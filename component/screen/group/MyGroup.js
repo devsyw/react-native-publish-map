@@ -259,8 +259,6 @@ export const MyGroup = ({navigation}) => {
 
             {/** 그룹원 위치 공유 모달팝업, 12.15 수정(ModalComp.js파일 업데이트 바랍니다) */}
             <UserLocIvtModal 
-                msg={'ㅇㅇ'}
-                option={'ㄴㄴㅇㅇㅇㅇ'}
                 modalYn={locModal}
                 setModalYn={setLocModal}
                 callback={()=>{}}

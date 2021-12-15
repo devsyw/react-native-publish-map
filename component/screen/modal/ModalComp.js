@@ -813,7 +813,7 @@ export const UserLocIvtModal = ({modalYn, setModalYn, callback}) => {
                             onPress={() => {friendsToggle ? toggleSwitch() : null}}
                         >
                             <Text style={!friendsToggle ? userLocIvtStyles.modalChangeTxt1 : userLocIvtStyles.modalChangeTxt2}>
-                                친구 위치 요청
+                                그룹 친구
                             </Text>
                         </TouchableOpacity>
 
@@ -824,7 +824,7 @@ export const UserLocIvtModal = ({modalYn, setModalYn, callback}) => {
                             {/** 알림, 빨간 동그라미 */}
                             <View style={userLocIvtStyles.modalChangeAlr}></View>
                             <Text style={friendsToggle ? userLocIvtStyles.modalChangeTxt1 : userLocIvtStyles.modalChangeTxt2}>
-                                내 위치 요청
+                                받은 신청
                             </Text>
                         </TouchableOpacity>
                     </View>
