@@ -14,6 +14,9 @@ import OpenBtnList from './component/effect/animation/openBtnList';
 import ThreePrac from './component/effect/threejs/prac';
 import WebViewTest from './component/effect/threejs/webviewTest';
 
+/** SVG Test */
+import { SvgTest } from './component/effect/svg/SvgTest';
+
 /** WorldMap(월드맵) publish */
 import WorldMap from './component/screen/map/WorldMap';
 
@@ -52,6 +55,14 @@ import GroupCreateTownName from './component/screen/group/GroupCreateTownName';
 import GroupCreateTownMarker from './component/screen/group/GroupCreateTownMarker';
 import GroupCreateDone from './component/screen/group/GroupCreateDone';
 
+/** NoticeBoard(공지사항) publish */
+import { NoticeBoard } from './component/screen/notice/NoticeBoard';
+import { NoticeBoardDetail } from './component/screen/notice/NoticeBoardDetail';
+
+/** QuizTown(퀴즈타운) publish */
+import { QuizMain } from './component/screen/quiztown/QuizMain';
+import { QuizGetItem } from './component/screen/quiztown/QuizGetItem';
+
 export default function App() {
     //StackNavigator
     const Stack = createStackNavigator();
@@ -59,7 +70,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={"MyGroup"}
+                initialRouteName={"QuizMain"}
                 screenOptions={{
                     headerShown: false, //top 영역을 보이게 할것인가?
                     headerTintColor:"white",
@@ -79,21 +90,17 @@ export default function App() {
                 <Stack.Screen name="SignInFriendsList" component={SignInFriendsList} />
                 <Stack.Screen name="SignInInviteNewFriends" component={SignInInviteNewFriends} />
 
-                {/** Map publish */}
+                {/** Map publish(12.13 개발) */}
                 <Stack.Screen name="WorldMap" component={WorldMap} />
 
-                {/** MyItem publish */}
+                {/** MyItem publish(12.15 개발) */}
                 <Stack.Screen name="MyItem" component={MyItem} />
 
-                {/** MyProfile publish */}
-                <Stack.Screen name="MyProfile" component={MyProfile} />
-                <Stack.Screen name="MyProfileCrtChange" component={MyProfileCrtChange} />
+                {/** NoticeBoard publish(12.16 개발) */}
+                <Stack.Screen name="NoticeBoard" component={NoticeBoard} />
+                <Stack.Screen name="NoticeBoardDetail" component={NoticeBoardDetail} />
 
-                {/** MyCollection publish */}
-                <Stack.Screen name="MyCollection" component={MyCollection} />
-                <Stack.Screen name="MyCollectionItemInfo" component={MyCollectionItemInfo} />
-
-                {/** MyGroup publish */}
+                {/** MyGroup publish(12.10 개발, 12.15 수정) */}
                 <Stack.Screen name="MyGroup" component={MyGroup} />
                 <Stack.Screen name="GroupCreateInv" component={GroupCreateInv} />
                 <Stack.Screen name="GroupCreateSet" component={GroupCreateSet} />
@@ -102,6 +109,18 @@ export default function App() {
                 <Stack.Screen name="GroupCreateTownName" component={GroupCreateTownName} />
                 <Stack.Screen name="GroupCreateTownMarker" component={GroupCreateTownMarker} />
                 <Stack.Screen name="GroupCreateDone" component={GroupCreateDone} />
+
+                {/** Quiz */}
+                <Stack.Screen name="QuizMain" component={QuizMain} />
+                <Stack.Screen name="QuizGetItem" component={QuizGetItem} />
+
+                {/** MyProfile publish(12.15 기준, 미사용중) */}
+                <Stack.Screen name="MyProfile" component={MyProfile} />
+                <Stack.Screen name="MyProfileCrtChange" component={MyProfileCrtChange} />
+
+                {/** MyCollection publish(12.15 기준, 미사용중) */}
+                <Stack.Screen name="MyCollection" component={MyCollection} />
+                <Stack.Screen name="MyCollectionItemInfo" component={MyCollectionItemInfo} />
 
                 {/** Animation samples */}
                 <Stack.Screen name="AnimationRoute" component={AnimationRoute}/>
@@ -113,6 +132,9 @@ export default function App() {
                 {/** 3D render Test */}
                 <Stack.Screen name="ThreePrac" component={ThreePrac}/>
                 <Stack.Screen name="WebViewTest" component={WebViewTest}/>
+
+                {/** SVG Test */}
+                <Stack.Screen name="SvgTest" component={SvgTest}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
         height : moderateScale(60),
     },
     renderItem_txt : {
-        fontSize : moderateScale(16), 
+        fontSize : moderateScale(14), // 12.15 수정 
     },
     topArea_rightBtn : {
         flexDirection : 'row',

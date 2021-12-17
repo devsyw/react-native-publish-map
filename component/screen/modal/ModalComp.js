@@ -1,12 +1,12 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from "react-native-modal";
-import { Animated, Dimensions, Image, ImageStore, PanResponder, SafeAreaView, StyleSheet, Switch, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Animated, Dimensions, Image, PanResponder, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { scale, moderateScale, verticalScale, width, height} from '../scaling';
 import { EmojiSendMotion, MapStyle1, MapStyle2 } from '../map/KogWorldMapComp'; 
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Entypo, MaterialIcons, Feather, Ionicons, FontAwesome } from '@expo/vector-icons'; 
 
-/** (아니오,예) 모달 팝업 */
+/** (아니오,예) blackBg 모달 팝업 */
 export const YnModal = ({msg, subMsg, modalYn, setModalYn, callback, cancleCallback}) => {
     return (
         <Modal
@@ -80,6 +80,53 @@ export const YModal = ({msg, subMsg, option, modalYn, setModalYn, callback}) => 
         </Modal>
     )
 }
+
+/** (아니오,예) WhiteBg + image 모달 팝업 */
+export const YnImageModal = ({msg, subMsg, modalYn, setModalYn, image, option, callback, cancleCallback}) => {
+    return (
+        <Modal
+            isVisible = {modalYn}
+            useNativeDriver={true}
+            hideModalContentWhileAnimating={true}
+            style={imgModalStyles.modalPopArea}
+        >
+            <View style={imgModalStyles.modalPop}>
+                <View style={imgModalStyles.modalImgArea}>
+                    <Image source={image} style={imgModalStyles.modalImgSt}/>
+                </View>
+
+                <View style={imgModalStyles.modalQBox}> 
+                    <Text style={imgModalStyles.modalTxt}>{msg}</Text>
+                </View>
+                {
+                    subMsg ? (
+                        <View style={imgModalStyles.modalSubQBox}>
+                            <Text style={imgModalStyles.modalSubTxt}>{subMsg}</Text>
+                        </View>
+                    ) : null
+                }
+                <View style={imgModalStyles.modalBtn}>
+                    <TouchableOpacity style={imgModalStyles.modalYnBtn1} onPress={() => {
+                        setModalYn(false)
+                        cancleCallback ? cancleCallback() : null;
+                        
+                    }}>
+                        <Text style={imgModalStyles.modalTxtYn1}>{option ? option.no : '싫어요!'}</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={imgModalStyles.modalYnBtn2} onPress={() => {
+                        setModalYn(false)
+                        callback ? callback() : null;
+                        
+                    }}>
+                        <Text style={imgModalStyles.modalTxtYn2}>{option ? option.ok : '할게요!'}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    )
+}
+
 
 /** 바텀 Emoji 팝업 */
 const emoji1 = require("../../asset/image/wm_emoji1_img.png")
@@ -1302,7 +1349,7 @@ const styles = StyleSheet.create({
         alignItems : 'center',
     },
     modalQBox : {
-        flex : 1.5, 
+        flex : 1, 
         justifyContent : 'center', 
         alignItems : 'center',
     },
@@ -1559,4 +1606,85 @@ const bottomPopStyles = StyleSheet.create({
         top : moderateScale(7),
         right : moderateScale(7),
     },
+})
+
+/** WhiteBg + Image 모달 팝업 스타일 */
+const imgModalStyles = StyleSheet.create({
+    modalPopArea : {
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    modalPop : {
+        justifyContent : 'center',
+        alignItems : 'center',
+        width : scale(280),
+        height : verticalScale(350),
+        borderRadius : moderateScale(20),
+        backgroundColor : '#fff',
+    },
+
+    modalTxt : {
+        color : '#000', 
+        fontWeight : 'bold',
+        fontSize : moderateScale(16),
+        textAlign : 'center',
+        lineHeight : verticalScale(28),
+    },
+    modalSubTxt : {
+        color : '#c4c4c4', 
+        fontSize : moderateScale(14),
+        marginTop : moderateScale(5),
+        textAlign : 'center',
+    },  
+    modalTxtYn1 : {
+        color : '#ABABAB', 
+        fontSize : moderateScale(16),
+        fontWeight : 'bold',
+    },
+    modalTxtYn2 : {
+        color : '#3298FF', 
+        fontSize : moderateScale(16),
+        fontWeight : 'bold',
+    },
+    modalYnBtn1 : {
+        flex : 1, 
+        justifyContent : 'center', 
+        alignItems : 'center',
+        borderRightWidth : 1,
+        borderColor : '#CCCCCC',
+    },
+    modalYnBtn2 : {
+        flex : 1, 
+        justifyContent : 'center', 
+        alignItems : 'center',
+    },
+    modalImgArea : {
+        flex : 3,
+        justifyContent : 'center', 
+        alignItems : 'center',
+    },
+    modalQBox : {
+        flex : 1, 
+        justifyContent : 'center', 
+        alignItems : 'center',
+    },
+    modalImgSt : {
+        resizeMode : 'contain',
+        width : moderateScale(160),
+        height : moderateScale(160),
+    },
+    modalBtn : {
+        flex : 0.8, 
+        flexDirection : 'row', 
+        justifyContent : 'space-around',
+        borderTopWidth : 1,
+        borderColor : '#CCCCCC',
+    },
+    modalSubQBox : {
+        flex : 1, 
+        justifyContent : 'center', 
+        alignItems : 'center',
+    },
+
 })
