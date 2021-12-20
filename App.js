@@ -54,6 +54,7 @@ import GroupCreateTown from './component/screen/group/GroupCreateTown';
 import GroupCreateTownName from './component/screen/group/GroupCreateTownName';
 import GroupCreateTownMarker from './component/screen/group/GroupCreateTownMarker';
 import GroupCreateDone from './component/screen/group/GroupCreateDone';
+import { GroupTownSelect } from './component/screen/group/GroupTownSelect';
 
 /** NoticeBoard(공지사항) publish */
 import { NoticeBoard } from './component/screen/notice/NoticeBoard';
@@ -70,7 +71,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={"QuizMain"}
+                initialRouteName={"GroupTownSelect"}
                 screenOptions={{
                     headerShown: false, //top 영역을 보이게 할것인가?
                     headerTintColor:"white",
@@ -109,6 +110,7 @@ export default function App() {
                 <Stack.Screen name="GroupCreateTownName" component={GroupCreateTownName} />
                 <Stack.Screen name="GroupCreateTownMarker" component={GroupCreateTownMarker} />
                 <Stack.Screen name="GroupCreateDone" component={GroupCreateDone} />
+                <Stack.Screen name="GroupTownSelect" component={GroupTownSelect} />
 
                 {/** Quiz */}
                 <Stack.Screen name="QuizMain" component={QuizMain} />

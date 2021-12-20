@@ -10,6 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 /** React-Native-Map lib */
 import { PROVIDER_GOOGLE} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
+import { useEffect } from 'react';
 
 /** 오른쪽 상단 메뉴바 안에 들어가는 이미지 */
 const groupBtn = require("../../asset/button/wm_group_btn.png")
@@ -103,6 +104,16 @@ export default function WorldMap({navigation, route, options, back}){
         {latitude: 37.16825, longitude: -122.6324}
     ]
     
+    const [reg, setReg] = useState({
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.02,
+        longitudeDelta: 0.02,
+    })
+    useEffect(() => {
+        return console.log(reg)
+    }, [reg])
+
     return (
         <View style={styles.container}>
             
@@ -117,17 +128,18 @@ export default function WorldMap({navigation, route, options, back}){
                     latitudeDelta: 0.02,
                     longitudeDelta: 0.02,
                 }}
+                onRegionChange={setReg}
             >
                 {/** 마커 */}
-                <UserMarker key={1} coordinate={coordinateList[0]} onPress={()=>pressMarker(coordinateList[0])} mapRef={backgroundMap}/>
-                <UserMarker key={2} coordinate={coordinateList[1]} onPress={()=>pressMarker(coordinateList[1])} mapRef={backgroundMap}/>
-                <UserMarker key={3} coordinate={coordinateList[2]} onPress={()=>pressMarker(coordinateList[2])} mapRef={backgroundMap}/>
-                <UserMarker key={4} coordinate={coordinateList[3]} onPress={()=>pressMarker(coordinateList[3])} mapRef={backgroundMap}/>
-                <UserMarker key={5} coordinate={coordinateList[4]} onPress={()=>pressMarker(coordinateList[4])} mapRef={backgroundMap}/>
-                <UserMarker key={6} coordinate={coordinateList[5]} onPress={()=>pressMarker(coordinateList[5])} mapRef={backgroundMap}/>
-                <UserMarker key={7} coordinate={coordinateList[6]} onPress={()=>pressMarker(coordinateList[6])} mapRef={backgroundMap}/>
-                <UserMarker key={8} coordinate={coordinateList[7]} onPress={()=>pressMarker(coordinateList[7])} mapRef={backgroundMap}/>
-                <UserMarker key={9} coordinate={coordinateList[8]} onPress={()=>pressMarker(coordinateList[8])} mapRef={backgroundMap}/>
+                <UserMarker key={0} coordinate={coordinateList[0]} onPress={()=>pressMarker(coordinateList[0])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={1} coordinate={coordinateList[1]} onPress={()=>pressMarker(coordinateList[1])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={2} coordinate={coordinateList[2]} onPress={()=>pressMarker(coordinateList[2])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={3} coordinate={coordinateList[3]} onPress={()=>pressMarker(coordinateList[3])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={4} coordinate={coordinateList[4]} onPress={()=>pressMarker(coordinateList[4])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={5} coordinate={coordinateList[5]} onPress={()=>pressMarker(coordinateList[5])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={6} coordinate={coordinateList[6]} onPress={()=>pressMarker(coordinateList[6])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={7} coordinate={coordinateList[7]} onPress={()=>pressMarker(coordinateList[7])} mapRef={backgroundMap} mapDelta={reg}/>
+                <UserMarker key={8} coordinate={coordinateList[8]} onPress={()=>pressMarker(coordinateList[8])} mapRef={backgroundMap} mapDelta={reg}/>
             </MapView>
 
             {/** 메뉴버튼 클릭시 노출되는 메뉴리스트 */}
@@ -183,6 +195,7 @@ export default function WorldMap({navigation, route, options, back}){
             {/** 골드바 */}
             <View style={styles.goldCover}>
                 <GoldBar gold={'10,000'} />
+                <Text></Text>
             </View>
             
             {/** 중앙 내 위치(로케이션) 버튼 */}
@@ -191,6 +204,8 @@ export default function WorldMap({navigation, route, options, back}){
                     <Image style={styles.btnLocSize} source={locationBtn} />
                 </View>
             </TouchableOpacity>
+
+            
             
             {/** 랜드/월드 이동 버튼 클릭시 맵 이동 언더팝업 */}
             <WorldModal 

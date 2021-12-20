@@ -12,6 +12,7 @@ import {
 import { Marker } from "react-native-maps";
 import { height, moderateScale, scale, verticalScale } from "../scaling";
 import * as Progress from 'react-native-progress';
+import { useEffect } from "react";
 
 /** 상단 골드 현황 */
 const coinIcon = require("../../asset/icon/wm_coin_icon.png")
@@ -24,18 +25,38 @@ export const GoldBar = ({gold}) => {
     )
 }
 
-/** 커스텀 유저 마커 */
+/** 커스텀 유저 마커 , 12.20 수정 */
 const crt = require('../../asset/image/wm_user_character_img.png'); //캐릭터
 const heartIcon = require('../../asset/icon/mp_ethereum_icon.png'); //하트아이콘, 지금은 아무거나 가져옴
-export const UserMarker = ({key, coordinate, onPress}) => {
+export const UserMarker = ({key, coordinate, onPress, mapRef, mapDelta}) => {
+    const defaultSize = moderateScale(120);
+    const [markerSize, setMarkerSize] = useState(moderateScale(defaultSize))
+    
+    useEffect(() => {
+        const minSize = moderateScale(40);
+        const maxSize = moderateScale(120);
+        const minZoom = 0.02;
+        const maxZoom = 0.7;
+        const maxOverZoom = 10;
+        const flagZoom = 0.01;
+        const flagData = maxSize * flagZoom;
+        const deltaSize = parseFloat(mapDelta.latitudeDelta) * parseFloat(mapDelta.longitudeDelta) * 100;
+        
+
+                let resize = (flagData / (maxSize * deltaSize)) * maxSize;
+                resize > maxSize ? resize = maxSize : null;
+                return resize > minSize ? setMarkerSize(resize) : setMarkerSize(minSize)
+
+    }, [mapDelta])
 
     /** 아바타 머리 위 체력게이지 */
     const HpBar = () => {
         return (
-            <Progress.Bar progress={1} width={scale(40)} height={verticalScale(6)} borderRadius={10} color={"#CC00FF"} />
+            <Progress.Bar progress={1} width={scale(60)} height={verticalScale(6)} borderRadius={moderateScale(10)} color={"#CC00FF"} />
         )
     }
-
+    
+     
     return (
         <Marker
             key={key}
@@ -43,13 +64,13 @@ export const UserMarker = ({key, coordinate, onPress}) => {
             onPress={onPress}
             style={styles.markerArea}
         >
-            <Text style={styles.markerName}>일이삼사오</Text>
+            <Text style={styles.markerName}>일이삼사오육칠팔구십</Text>
             <View style={styles.markerHpArea}>
                 <Image source={heartIcon} style={styles.markerHeartIcon}/>
-                <HpBar/>
+                <HpBar />
             </View>
             
-            <Image source={crt} style={styles.markerCrt}/>
+            <Image source={crt} style={[styles.markerCrt, {width : markerSize, height : markerSize}]}/>
         </Marker>
     )
 }
@@ -98,8 +119,6 @@ export const EmojiSendMotion = ({img, setCount}) => {
 const styles = StyleSheet.create({
     markerCrt : {
         resizeMode : 'contain',
-        width : moderateScale(60),
-        height : moderateScale(60),
     },
     sendEmojiCon : {
         ...StyleSheet.absoluteFill,
@@ -122,7 +141,7 @@ const styles = StyleSheet.create({
         alignItems : 'center'
     },
     markerName : {
-        fontSize : moderateScale(10), 
+        fontSize : moderateScale(12), 
         fontWeight : "bold",
     },
     markerHpArea : {
@@ -133,7 +152,8 @@ const styles = StyleSheet.create({
     markerHeartIcon : {
         resizeMode : "contain" , 
         width : moderateScale(10), 
-        height : moderateScale(10)
+        height : moderateScale(10),
+        marginBottom : verticalScale(5),
     },
 
     topGoldArea : {
